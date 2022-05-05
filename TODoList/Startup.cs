@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TODoList.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace TODoList
 {
@@ -26,7 +27,11 @@ namespace TODoList
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(
-                options => options.UseSqlServer( Configuration.GetConnectionString("DefaultConnection" )));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI()
+            .AddEntityFrameworkStores<ApplicationDBContext>();
+
             services.AddControllersWithViews();
         }
 
@@ -45,11 +50,9 @@ namespace TODoList
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
