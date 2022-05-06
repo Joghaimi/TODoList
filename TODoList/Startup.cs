@@ -31,7 +31,16 @@ namespace TODoList
             
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI()
             .AddEntityFrameworkStores<ApplicationDBContext>();
-
+            services.AddRazorPages();
+            services.AddHttpContextAccessor();
+            services.AddSession(
+                Options =>
+                {
+                    Options.IdleTimeout = TimeSpan.FromMinutes(10);
+                    Options.Cookie.HttpOnly = true;
+                    Options.Cookie.IsEssential = true;
+                }
+                );
             services.AddControllersWithViews();
         }
 
@@ -55,6 +64,7 @@ namespace TODoList
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
