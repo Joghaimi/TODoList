@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TODoList.Models;
 
 namespace TODoList.Data
 {
@@ -9,5 +10,6 @@ namespace TODoList.Data
         {
 
         }
+        public DbSet<Note> Note { set; get; }
     }
 }
