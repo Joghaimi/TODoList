@@ -20,7 +20,10 @@ namespace TODoList.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+            else
+                return Redirect("/Identity/Account/Login");
         }
 
         public IActionResult Privacy()
