@@ -11,5 +11,6 @@ namespace TODoList.Models
         public int userId { get; set; }
         public string noteString { get; set; }
         public string assignTo { get; set; }
+        public bool completed { get; set; }
     }
 }
