@@ -37,14 +37,12 @@ namespace TODoList.Controllers
         }
 
 
-        [HttpPost]
-        public JsonResult Compleated(int id)
+        //[HttpPost]
+        public JsonResult Compleated(int id , bool isCompleated)
         {
-            //var result = _db.Note.SingleOrDefault(u => u.id == noteId);
-            //result.completed = isCompleated;
-            //_db.SaveChanges();
-            //return RedirectToAction(nameof(Index));
-            var i = id;
+            var result = _db.Note.SingleOrDefault(u => u.id == id);
+            result.completed = isCompleated;
+            _db.SaveChanges();
             return Json("Ok");
         }
 

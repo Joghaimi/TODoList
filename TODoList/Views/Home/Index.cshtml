@@ -17,7 +17,7 @@
 
                                 @foreach (var item in Model)
                                 {
-                                                         <partial name="_IndiviualNote" model ="item" />
+                                                                 <partial name="_IndiviualNote" model ="item" />
                                 }
 
 
@@ -46,17 +46,19 @@
             //xhttp.open("POST", '@Url.Action("Compleated","Home")', true);
             //xhttp.send(param); 
 
-
-
+            //$.get(
+            //    @Url.Action("Compleated","Home"),{id:1}function (data) {  
+            //$("#rData").html(data);  
+            // });  
 
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: '@Url.Action("Compleated","Home")',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: { "id": 1} 
-             
-               
+                data: {id: id , isCompleated:!isChecked} 
+
+
                 });
 
         }
