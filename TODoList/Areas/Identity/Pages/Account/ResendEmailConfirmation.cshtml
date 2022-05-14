@@ -4,11 +4,13 @@
     ViewData["Title"] = "Resend email confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-2""></div>
+    <div  class="col-6 bg-white p-2" >
+        <h4>@ViewData["Title"]</h4>
 <h4>Enter your email.</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
