@@ -1,8 +1,9 @@
 ﻿@model TODoList.Models.Note
 @{
     string chekBoxId = "exampleCustomCheckbox"+Model.id;
+    string noteId = "Note"+Model.id;
 }
- <li class="list-group-item">
+ <li class="list-group-item" id="@noteId">
     <div class="todo-indicator bg-warning"></div>
         <div class="widget-content p-0">
             <div class="widget-content-wrapper">
@@ -21,7 +22,7 @@
                 <div class="widget-content-right"> <button
                         class="border-0 btn-transition btn btn-outline-success" onclick="markAsCompleted(@Model.id);"> <i
                             class="fa fa-check"></i></button> <button
-                        class="border-0 btn-transition btn btn-outline-danger"> <i
+                        class="border-0 btn-transition btn btn-outline-danger" onclick="deleteNote(@Model.id);"><i
                             class="fa fa-trash"></i> </button> </div>
             </div>
         </div>

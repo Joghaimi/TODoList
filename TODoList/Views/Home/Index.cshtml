@@ -13,22 +13,45 @@
                     <perfect-scrollbar class="ps-show-limits">
                         <div style="position: static;" class="ps ps--active-y">
                             <div class="ps-content">
+                             <!-- Saved Task-->
                                 <ul class=" list-group list-group-flush">
-
                                 @foreach (var item in Model)
                                 {
-                                                                 <partial name="_IndiviualNote" model ="item" />
+                                  <partial name="_IndiviualNote" model ="item" />
                                 }
-
-
-
                                 </ul>
+                             <!-- Saved Task-->
+                             <!-- Add New Task -->
+                       <li class="list-group-item" id="addNote" style="display:none">
+                        <div class="todo-indicator bg-warning"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2 col-6">
+                                         <input style="width:100%;padding:1px" id="NoteString" type="text" placeholder="Note Text" minlength="5"></input> 
+                                    </div>
+                                     <div class="widget-content-left col-2">
+                                         <input class="custom-control-label" id="assignTo" type="text" placeholder="Assigned to" minlength="3"></input> 
+                                    </div>
+                                    <div class="widget-content-right col-2"> 
+                                        <button class="border-0 btn-transition btn btn-outline-success" onclick="AddNote();"> 
+                                            <i class="fa fa-check"></i>
+                                        </button>  
+                                        <button class="border-0 btn-transition btn btn-outline-danger" onclick="hideAddTaskDialog();">
+                                            <i class="fa fa-trash"></i> 
+                                        </button>
+                                    </div>
+                                 </div>
+                            </li>
+
+                             <!-- Add New Task -->
+
                             </div>
                         </div>
                     </perfect-scrollbar>
-                        <div class="d-block text-right card-footer"><button
-                        class="mr-2 btn btn-link btn-sm">Cancel</button><button class="btn btn-primary">Add
-                        Task</button></div>
+                        <div class="d-block text-right card-footer">
+                            <button class="mr-2 btn btn-link btn-sm">Cancel</button>
+                            <button onclick="showAddTaskDialog()" class="btn btn-primary">Add Task</button>
+                        </div>
 
 
 
@@ -41,28 +64,43 @@
             // change State
             document.getElementById("exampleCustomCheckbox"+String(id)).checked=!isChecked;
             // Update DB
-            //var xhttp = new XMLHttpRequest();
-            //var param="id="+String(id)+"&combleated="+!isChecked;
-            //xhttp.open("POST", '@Url.Action("Compleated","Home")', true);
-            //xhttp.send(param); 
-
-            //$.get(
-            //    @Url.Action("Compleated","Home"),{id:1}function (data) {  
-            //$("#rData").html(data);  
-            // });  
-
             $.ajax({
                 type: 'GET',
                 url: '@Url.Action("Compleated","Home")',
                 dataType: 'json',
                 contentType: 'application/json',
                 data: {id: id , isCompleated:!isChecked} 
-
-
                 });
-
         }
-
+        function deleteNote(id){
+             document.getElementById("Note"+String(id)).style.display = "none"; 
+                $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Delete","Home")',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: {id: id} 
+                });
+        }
+        function showAddTaskDialog(){
+             document.getElementById("addNote").style.display = "block"; 
+        }
+        function hideAddTaskDialog(){
+             document.getElementById("addNote").style.display = "None"; 
+        }
+        function AddNote(){
+            var noteBody =  document.getElementById("NoteString").value;
+            var assignedTo = document.getElementById("assignTo").value;
+            // Send Request To DB 
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("AddNote","Home")',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: {noteString: noteBody , assignTo:assignedTo} 
+            });
+            hideAddTaskDialog();
+        }
     </script>
 }
 

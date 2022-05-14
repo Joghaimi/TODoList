@@ -33,6 +33,9 @@ namespace TODoList
             .AddEntityFrameworkStores<ApplicationDBContext>();
             services.AddRazorPages();
             services.AddHttpContextAccessor();
+
+
+
             services.AddSession(
                 Options =>
                 {
